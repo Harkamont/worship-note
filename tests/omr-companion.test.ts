@@ -1,11 +1,27 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import { mkdtemp, mkdir, writeFile, chmod, readdir, rm } from 'node:fs/promises';
+import { mkdtemp, mkdir, writeFile, readdir, rm } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
+import { spawnSync } from 'node:child_process';
 
 const token = 'test-local-omr-token-with-enough-entropy';
 const png = Uint8Array.from([137,80,78,71,13,10,26,10,0,0,0,0]);
+// A .mjs shebang executable cannot be spawned directly on Windows. Exercise
+// the same real Python invocation as the companion, using only a fake module.
+const pythonExecutable = (() => {
+  for (const command of ['python3', 'python']) {
+    const result = spawnSync(command, ['-c', 'import sys; print(sys.executable)'], { encoding: 'utf8' });
+    if (result.status === 0 && result.stdout.trim()) return result.stdout.trim();
+  }
+  throw new Error('Companion tests require Python 3; CI installs it before running tests.');
+})();
+async function fakeHomr(root: string, program: string): Promise<string> {
+  await mkdir(join(root, 'homr'), { recursive: true });
+  await writeFile(join(root, 'homr', '__init__.py'), '');
+  await writeFile(join(root, 'homr', 'main.py'), program);
+  return pythonExecutable;
+}
 
 test('companion refuses missing token and enforces auth, image signature, one job and cleanup', async () => {
   const { createCompanionServer } = await import('../scripts/omr-companion.mjs');
@@ -13,10 +29,8 @@ test('companion refuses missing token and enforces auth, image signature, one jo
   const root = await mkdtemp(join(tmpdir(), 'omr-test-'));
   const jobsDir = join(root, 'jobs');
   await mkdir(jobsDir);
-  const python = join(root, 'fake-python.mjs');
-  await writeFile(python, '#!/usr/bin/env node\nimport {writeFile} from "node:fs/promises"; const input=process.argv.at(-1); await new Promise(r=>setTimeout(r,120)); await writeFile(input.replace(/\\.(png|jpg)$/, ".musicxml"), "<score-partwise/>");');
-  await chmod(python, 0o700);
-  const server = createCompanionServer({ token, runtimeCheck: async () => true, python, source: root, jobsDir, timeoutMs: 1000 });
+  const python = await fakeHomr(root, 'from pathlib import Path\nimport sys,time\ntime.sleep(0.12)\nPath(sys.argv[-1]).with_suffix(".musicxml").write_text("<score-partwise/>",encoding="utf-8")\n');
+  const server = createCompanionServer({ token, runtimeCheck: async () => true, python, source: root, jobsDir, timeoutMs: 5000 });
   await new Promise<void>(resolve => server.listen(0, '127.0.0.1', resolve));
   const address = server.address();
   assert.ok(address && typeof address !== 'string');
@@ -44,8 +58,7 @@ test('companion kills timed out process, cleans job and releases lock', async ()
   const { createCompanionServer } = await import('../scripts/omr-companion.mjs');
   const root = await mkdtemp(join(tmpdir(), 'omr-timeout-'));
   const jobsDir = join(root, 'jobs'); await mkdir(jobsDir);
-  const python = join(root, 'fake-python.mjs');
-  await writeFile(python, '#!/usr/bin/env node\nsetTimeout(()=>{},10000);'); await chmod(python, 0o700);
+  const python = await fakeHomr(root, 'import time\ntime.sleep(10)\n');
   const server = createCompanionServer({ token, runtimeCheck: async () => true, python, source: root, jobsDir, timeoutMs: 50 });
   await new Promise<void>(resolve => server.listen(0, '127.0.0.1', resolve));
   const address = server.address(); assert.ok(address && typeof address !== 'string');
@@ -61,12 +74,11 @@ test('companion kills timed out process, cleans job and releases lock', async ()
 test('companion exposes authenticated text capability and shares the recognition lock with text OCR',async()=>{
   const {createCompanionServer}=await import('../scripts/omr-companion.mjs');
   const root=await mkdtemp(join(tmpdir(),'text-ocr-companion-'));const jobsDir=join(root,'jobs');await mkdir(jobsDir);
-  const python=join(root,'fake-python.mjs');
+  const python=pythonExecutable;
   const payload={version:1,engine:'test',elapsedMs:1,cost:0,image:{width:10,height:10},systems:[],warnings:[]};
-  await writeFile(python,'#!/usr/bin/env node\nimport {writeFile} from "node:fs/promises";await new Promise(r=>setTimeout(r,120));await writeFile(process.argv.at(-1),'+JSON.stringify(JSON.stringify(payload))+');');await chmod(python,0o700);
-  const textOcrScript=join(root,'local-text-ocr.py');await writeFile(textOcrScript,'# injected runner path');
-  const visionOcr=join(root,'vision-ocr');await writeFile(visionOcr,'#!/bin/sh\nexit 0\n');await chmod(visionOcr,0o700);
-  const server=createCompanionServer({token,runtimeCheck:async()=>true,python,source:root,jobsDir,textOcrScript,visionOcr,timeoutMs:1000});
+  const textOcrScript=join(root,'local-text-ocr.py');await writeFile(textOcrScript,'from pathlib import Path\nimport sys,time\ntime.sleep(0.12)\nPath(sys.argv[-1]).write_text('+JSON.stringify(JSON.stringify(payload))+',encoding="utf-8")\n');
+  const visionOcr=pythonExecutable;
+  const server=createCompanionServer({token,runtimeCheck:async()=>true,python,source:root,jobsDir,textOcrScript,visionOcr,timeoutMs:5000});
   await new Promise<void>(resolve=>server.listen(0,'127.0.0.1',resolve));const address=server.address();assert.ok(address&&typeof address!=='string');const base=`http://127.0.0.1:${address.port}`;
   const headers={authorization:`Bearer ${token}`,'content-type':'image/png'};
   try{
@@ -84,15 +96,16 @@ test('companion exposes authenticated text capability and shares the recognition
 test('text companion kills timed out process and rejects output above 2MiB without leaving jobs',async()=>{
   const {createCompanionServer}=await import('../scripts/omr-companion.mjs');
   const root=await mkdtemp(join(tmpdir(),'text-ocr-timeout-'));const jobsDir=join(root,'jobs');await mkdir(jobsDir);
-  const python=join(root,'fake-python.mjs');const textOcrScript=join(root,'local-text-ocr.py');const visionOcr=join(root,'vision-ocr');
-  await writeFile(textOcrScript,'# runner');await writeFile(visionOcr,'#!/bin/sh\nexit 0\n');await chmod(visionOcr,0o700);
-  await writeFile(python,'#!/usr/bin/env node\nsetTimeout(()=>{},10000);');await chmod(python,0o700);
-  const server=createCompanionServer({token,runtimeCheck:async()=>true,python,source:root,jobsDir,textOcrScript,visionOcr,timeoutMs:150});
+  const python=pythonExecutable;const textOcrScript=join(root,'local-text-ocr.py');const visionOcr=pythonExecutable;
+  await writeFile(textOcrScript,'import time\ntime.sleep(10)\n');
+  const configuration={token,runtimeCheck:async()=>true,python,source:root,jobsDir,textOcrScript,visionOcr,timeoutMs:150};
+  const server=createCompanionServer(configuration);
   await new Promise<void>(resolve=>server.listen(0,'127.0.0.1',resolve));const address=server.address();assert.ok(address&&typeof address!=='string');const url=`http://127.0.0.1:${address.port}/text-ocr`;
   const headers={authorization:`Bearer ${token}`,'content-type':'image/png'};
   try{
     assert.equal((await fetch(url,{method:'POST',headers,body:png})).status,504);assert.deepEqual(await readdir(jobsDir),[]);
-    await writeFile(python,'#!/usr/bin/env node\nimport {writeFile} from "node:fs/promises";await writeFile(process.argv.at(-1),new Uint8Array(2*1024*1024+1));');
+    configuration.timeoutMs=5000;
+    await writeFile(textOcrScript,'from pathlib import Path\nimport sys\nPath(sys.argv[-1]).write_bytes(bytes(2*1024*1024+1))\n');
     assert.equal((await fetch(url,{method:'POST',headers,body:png})).status,502);assert.deepEqual(await readdir(jobsDir),[]);
   }finally{await new Promise<void>(resolve=>server.close(()=>resolve()));await rm(root,{recursive:true,force:true});}
 });
@@ -117,14 +130,14 @@ test('companion rejects a hostile Host and reports missing runtime as unready',a
 test('companion shutdown kills its active child and removes the in-flight job',async()=>{
   const {createCompanionServer}=await import('../scripts/omr-companion.mjs');
   const root=await mkdtemp(join(tmpdir(),'omr-shutdown-'));const jobsDir=join(root,'jobs');await mkdir(jobsDir);
-  const python=join(root,'fake-python.mjs');const pidFile=join(root,'child.pid');
-  await writeFile(python,'#!/usr/bin/env node\nimport {writeFileSync} from "node:fs";writeFileSync('+JSON.stringify(pidFile)+',String(process.pid));setTimeout(()=>{},60000);');await chmod(python,0o700);
+  const pidFile=join(root,'child.pid');
+  const python=await fakeHomr(root,'from pathlib import Path\nimport os,time\nPath('+JSON.stringify(pidFile)+').write_text(str(os.getpid()),encoding="utf-8")\ntime.sleep(60)\n');
   const server=createCompanionServer({token,python,source:root,jobsDir,runtimeCheck:async()=>true});
   await new Promise<void>(resolve=>server.listen(0,'127.0.0.1',resolve));const address=server.address();assert.ok(address&&typeof address!=='string');
   const pending=fetch(`http://127.0.0.1:${address.port}/recognize`,{method:'POST',headers:{authorization:`Bearer ${token}`,'content-type':'image/png'},body:png}).catch(()=>undefined);
   try{
     const {readFile}=await import('node:fs/promises');let pid=0;
-    for(let i=0;i<50&&!pid;i++){try{pid=Number(await readFile(pidFile,'utf8'));}catch{await new Promise(resolve=>setTimeout(resolve,10));}}
+    for(let i=0;i<500&&!pid;i++){try{pid=Number(await readFile(pidFile,'utf8'));}catch{await new Promise(resolve=>setTimeout(resolve,10));}}
     assert.ok(pid>0);assert.equal(typeof server.shutdown,'function');await server.shutdown();await pending;
     assert.throws(()=>process.kill(pid,0));assert.deepEqual(await readdir(jobsDir),[]);
   }finally{server.close();await rm(root,{recursive:true,force:true});}
