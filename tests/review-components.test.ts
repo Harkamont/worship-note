@@ -45,7 +45,7 @@ test('restored direct review uses a source name without creating a fake File', a
   const { default: DirectMusicXML } = await import(await componentURL('direct-musicxml'));
   const html = renderToStaticMarkup(createElement(DirectMusicXML, { file: null, sourceName: '보관한 원본.musicxml', originalUrl: '', configured: false, model: '', result: source, onResult() {}, onImport() {}, onBusyChange() {}, onDownloadProject() {} }));
   assert.match(html, /보관한 원본.musicxml/);
-  assert.match(html, /작업 파일 저장 \(JSON\)/);
+  assert.match(html, /현재 편집 작업 보관 \(JSON\)/);
   assert.doesNotMatch(html, /다시 여는 기능은 아직 제공하지 않습니다/);
 });
 

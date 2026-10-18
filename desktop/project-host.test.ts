@@ -34,9 +34,13 @@ test('missing project loads as null and valid projects round trip through privat
     const loaded = await context.handle(request());
     assert.deepEqual(await loaded.json(), { desktop: true, project: project() });
     assert.deepEqual(JSON.parse(await readFile(context.current, 'utf8')), normalizeProject(project()));
-    assert.equal((await stat(context.directory)).mode & 0o777, 0o700);
-    assert.equal((await stat(join(context.directory, 'projects'))).mode & 0o777, 0o700);
-    assert.equal((await stat(context.current)).mode & 0o777, 0o600);
+    // Windows reports synthetic mode bits; its ACLs are not POSIX permissions.
+    // Keep all read/write and preservation checks on both platforms.
+    if (process.platform !== 'win32') {
+      assert.equal((await stat(context.directory)).mode & 0o777, 0o700);
+      assert.equal((await stat(join(context.directory, 'projects'))).mode & 0o777, 0o700);
+      assert.equal((await stat(context.current)).mode & 0o777, 0o600);
+    }
     assert.deepEqual(await readdir(join(context.directory, 'projects')), ['current.json']);
   } finally { await context.cleanup(); }
 });
@@ -116,7 +120,7 @@ test('successive and simultaneous saves preserve the preceding valid project as 
     assert.deepEqual(responses.map(response => response.status), [200, 200]);
     assert.deepEqual(JSON.parse(await readFile(context.current, 'utf8')), project('세 번째'));
     assert.deepEqual(JSON.parse(await readFile(context.backup, 'utf8')), project('두 번째'));
-    assert.equal((await stat(context.backup)).mode & 0o777, 0o600);
+    if (process.platform !== 'win32') assert.equal((await stat(context.backup)).mode & 0o777, 0o600);
     assert.deepEqual((await readdir(join(context.directory, 'projects'))).sort(), ['current.backup.json', 'current.json']);
   } finally { await context.cleanup(); }
 });

@@ -20,7 +20,8 @@ test('desktop settings preserve blank keys, redact responses, use private storag
     const response=await handle(request({provider:'openrouter',model:'openai/gpt-6-sol',apiKey:'secret-example-123'})); assert.equal(response.status,200);
     const text=await response.text();assert.ok(!text.includes('secret-example-123'));assert.equal(JSON.parse(text).keyConfigured,true);
     assert.equal(environment.AI_PROVIDER,'openai-compatible');assert.equal(environment.AI_BASE_URL,'https://openrouter.ai/api/v1');assert.equal(environment.AI_API_KEY,'secret-example-123');
-    assert.equal((await stat(join(directory,'settings.json'))).mode&0o777,0o600);
+    // Windows privacy is controlled by ACLs, not the POSIX bits stat exposes.
+    if (process.platform!=='win32') assert.equal((await stat(join(directory,'settings.json'))).mode&0o777,0o600);
     await handle(request({provider:'openrouter',model:'new-model',apiKey:''}));assert.equal(environment.AI_API_KEY,'secret-example-123');assert.equal(environment.AI_MUSICXML_MODEL,'new-model');
     assert.equal(JSON.parse(await readFile(join(directory,'settings.json'),'utf8')).apiKey,'secret-example-123');
     await handle(request({provider:'openai',model:'gpt-6-sol'}));assert.equal(environment.AI_API_KEY,'');
