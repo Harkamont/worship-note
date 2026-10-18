@@ -10,9 +10,17 @@ test('selective repair sends only selected context and crop, retaining receipt a
 test('invalid or cross-origin selection cannot start a paid request',async()=>{for(const req of [request({partId:'P1',startMeasure:1,endMeasure:5}),request({partId:'missing',startMeasure:1,endMeasure:1}),request(undefined,'https://evil.test')]){const response=await handler()(req,env,async()=>assert.fail('must not charge'));assert.ok([400,403].includes(response.status));}});
 test('invalid paid output retains reported cost and leaves the original untouched',async()=>{const response=await handler()(request(),env,async()=>Response.json({choices:[{finish_reason:'stop',message:{content:fragment.replace('<duration>16</duration>','<duration>4</duration>')}}],usage:{cost:.002}}));assert.equal(response.status,502);const result=await response.json() as {cost:number;repair:{originalXML:string};document:{xml:string};billing:{cost:number};error:{code:string}};assert.equal(result.billing.cost,.002);assert.match(result.error.code,/REPAIR|MUSICXML/);});
 
-test('multipart XML transport accepts a BOM-bearing input and returns its canonical wire snapshot',async()=>{
+test('multipart XML transport accepts a BOM-bearing input and preserves the received wire snapshot',async()=>{
   const req=request();const form=await req.formData();form.set('musicxml','\uFEFF'+xml);
-  const response=await api.handleMusicXMLRepairRequest(new Request(req.url,{method:'POST',headers:{origin:'https://score.test'},body:form}),env,async()=>Response.json({choices:[{finish_reason:'stop',message:{content:fragment}}],usage:{cost:.001}}));
+  const transport=new Request(req.url,{method:'POST',headers:{origin:'https://score.test'},body:form});
+  // Node 24 preserves a multipart BOM; Node 25 consumes it. The API must keep
+  // the exact decoded input. The client separately canonicalizes its wire XML.
+  const wireXML=(await transport.clone().formData()).get('musicxml');
+  assert.equal(typeof wireXML,'string');
+  const response=await api.handleMusicXMLRepairRequest(transport,env,async()=>Response.json({choices:[{finish_reason:'stop',message:{content:fragment}}],usage:{cost:.001}}));
   assert.equal(response.status,200);const data=await response.json() as {document:{xml:string};repair:{originalXML:string};score:unknown};
-  assert.equal(data.repair.originalXML,xml);assert.ok(data.score);
+  assert.equal(data.repair.originalXML,wireXML);
+  assert.equal(data.repair.originalXML.replace(/^\uFEFF/,''),xml);
+  assert.equal(data.document.xml.startsWith('\uFEFF'),String(wireXML).startsWith('\uFEFF'));
+  assert.ok(data.score);
 });
