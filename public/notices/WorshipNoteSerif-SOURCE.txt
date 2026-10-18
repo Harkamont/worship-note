@@ -1,0 +1,23 @@
+Worship Note Serif Semibold — offline Korean interface font
+
+Upstream family: Noto Serif KR
+Copyright: (c) 2017–2024 Adobe (http://www.adobe.com/).
+License: SIL Open Font License 1.1; see NotoSerifKR-OFL.txt in this folder.
+Official source: https://github.com/google/fonts/tree/main/ofl/notoserifkr
+Upstream project: https://github.com/notofonts/noto-cjk
+Google Fonts upstream metadata identifies source commit:
+985fa52c81c1d6692ccdd82bc3656e8fb932fd89
+
+Downloaded from the official Google Fonts repository on 2026-10-18:
+https://raw.githubusercontent.com/google/fonts/main/ofl/notoserifkr/NotoSerifKR%5Bwght%5D.ttf
+
+Modifications for the app:
+- Instance weight 600 from the variable font.
+- WOFF2 subset retaining modern Hangul syllables U+AC00–U+D7A3,
+  Korean jamo, Latin, common punctuation and currency characters.
+- Renamed family to Worship Note Serif; font outlines were not redrawn.
+- Bundled locally, without any Google Fonts network request at app runtime.
+
+Reproduction tools: fontTools varLib.instancer and subset, Brotli.
+The complete upstream font includes scripts not required by this interface.
+Unavailable glyphs use the user's locally installed fallback serif font.

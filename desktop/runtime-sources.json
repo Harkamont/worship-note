@@ -1,0 +1,122 @@
+{
+  "homrCommit": "ab369ac54277afab582afa4725441f7cbba76593",
+  "pythonBuildVersion": "3.12.14",
+  "pyinstaller": "6.22.3",
+  "node": "v24.22.0",
+  "models": [
+    {
+      "path": "homr/segmentation/segnet_308-3296ccd40960f90ca6ab9c035cca945675d30a0f.onnx",
+      "url": "https://github.com/liebharc/homr/releases/download/onnx_checkpoints/segnet_308-3296ccd40960f90ca6ab9c035cca945675d30a0f.zip",
+      "sha256": "6ed36640db4ef5d223098b6d5efe4eda97c66b24a2c72faab8a018c749003a8d"
+    },
+    {
+      "path": "homr/transformer/decoder_pytorch_model_465-597144cab54c8f6d0f6c9619df5c5312694eadd6.onnx",
+      "url": "https://github.com/liebharc/homr/releases/download/onnx_checkpoints/decoder_pytorch_model_465-597144cab54c8f6d0f6c9619df5c5312694eadd6.zip",
+      "sha256": "18801c1e3657bdea1b031db90b10d66e15accfc1d607780f09a9e059133e886a"
+    },
+    {
+      "path": "homr/transformer/encoder_pytorch_model_465-597144cab54c8f6d0f6c9619df5c5312694eadd6.onnx",
+      "url": "https://github.com/liebharc/homr/releases/download/onnx_checkpoints/encoder_pytorch_model_465-597144cab54c8f6d0f6c9619df5c5312694eadd6.zip",
+      "sha256": "92bd18338dc8da3c9b00185008ab14719ff9f912efe785ca42d7b623e06e0c6b"
+    }
+  ],
+  "macOCRArchives": [
+    {
+      "filename": "tesseract-5.5.2-1.5.13-macosx-arm64.jar",
+      "url": "https://repo.maven.apache.org/maven2/org/bytedeco/tesseract/5.5.2-1.5.13/tesseract-5.5.2-1.5.13-macosx-arm64.jar",
+      "sha256": "9930443359054d2c8f7572a534537dbca663d1fb0111eac590e8b9749a2e1ae6",
+      "member": "org/bytedeco/tesseract/macosx-arm64/libtesseract.5.5.dylib"
+    },
+    {
+      "filename": "leptonica-1.87.0-1.5.13-macosx-arm64.jar",
+      "url": "https://repo.maven.apache.org/maven2/org/bytedeco/leptonica/1.87.0-1.5.13/leptonica-1.87.0-1.5.13-macosx-arm64.jar",
+      "sha256": "cddd0fc9187b219be608a13a1c049a34d37ae7357acdbb6a8041221c056bbee7",
+      "member": "org/bytedeco/leptonica/macosx-arm64/libleptonica.6.dylib"
+    }
+  ],
+  "traineddata": [
+    {
+      "filename": "eng.traineddata",
+      "url": "https://raw.githubusercontent.com/tesseract-ocr/tessdata/ced78752cc61322fb554c280d13360b35b8684e4/eng.traineddata",
+      "sha256": "daa0c97d651c19fba3b25e81317cd697e9908c8208090c94c3905381c23fc047"
+    },
+    {
+      "filename": "kor.traineddata",
+      "url": "https://raw.githubusercontent.com/tesseract-ocr/tessdata/ced78752cc61322fb554c280d13360b35b8684e4/kor.traineddata",
+      "sha256": "9520bfe9e3cfc38d4a808e036b0287c88a1d37fb80b9a0a23928ddccdd20595b"
+    }
+  ],
+  "runtime": "CPU ONNX; HOMR title detection disabled; no runtime model downloads",
+  "opencvSource": {
+    "version": "4.13.0",
+    "url": "https://github.com/opencv/opencv/archive/refs/tags/4.13.0.tar.gz",
+    "sha256": "1d40ca017ea51c533cf9fd5cbde5b5fe7ae248291ddf2af99d4c17cf8e13017d",
+    "modules": [
+      "core",
+      "imgproc",
+      "imgcodecs",
+      "python3"
+    ],
+    "videoBackends": false,
+    "sharedLibraries": false,
+    "cmakeOptions": [
+      "-DCMAKE_MAKE_PROGRAM={ninja}",
+      "-DCMAKE_INSTALL_PREFIX={root/\"install\"}",
+      "-DPYTHON3_EXECUTABLE={sys.executable}",
+      "-DPYTHON3_INCLUDE_DIR={python_include}",
+      "-DPYTHON3_LIBRARY={python_library}",
+      "-DOPENCV_PYTHON3_INSTALL_PATH={site}",
+      "-DCMAKE_BUILD_TYPE=Release",
+      "-DCMAKE_OSX_DEPLOYMENT_TARGET=13.0",
+      "-DBUILD_LIST=core,imgproc,imgcodecs,python3,python_bindings_generator",
+      "-DBUILD_SHARED_LIBS=OFF",
+      "-DBUILD_opencv_python3=ON",
+      "-DBUILD_opencv_python2=OFF",
+      "-DBUILD_JAVA=OFF",
+      "-DBUILD_TESTS=OFF",
+      "-DBUILD_PERF_TESTS=OFF",
+      "-DBUILD_EXAMPLES=OFF",
+      "-DBUILD_DOCS=OFF",
+      "-DBUILD_opencv_apps=OFF",
+      "-DBUILD_ZLIB=ON",
+      "-DBUILD_JPEG=ON",
+      "-DBUILD_PNG=ON",
+      "-DWITH_FFMPEG=OFF",
+      "-DWITH_GSTREAMER=OFF",
+      "-DWITH_AVFOUNDATION=OFF",
+      "-DWITH_OPENCL=OFF",
+      "-DWITH_IPP=OFF",
+      "-DWITH_ITT=OFF",
+      "-DWITH_OPENEXR=OFF",
+      "-DWITH_PROTOBUF=OFF",
+      "-DWITH_QUIRC=OFF",
+      "-DWITH_WEBP=OFF",
+      "-DWITH_TIFF=OFF",
+      "-DWITH_JPEG=ON",
+      "-DWITH_PNG=ON",
+      "-DWITH_JPEGXL=OFF",
+      "-DWITH_AVIF=OFF",
+      "-DWITH_OBSENSOR=OFF",
+      "-DWITH_OPENVX=OFF",
+      "-DWITH_LAPACK=OFF",
+      "-DWITH_ADE=OFF",
+      "-DWITH_SIMD=OFF"
+    ],
+    "typingAliases": [
+      "MatLike",
+      "Rect",
+      "RotatedRect"
+    ],
+    "loaderPaths": "relative to cv2 package directory"
+  },
+  "nativeSources": [
+    {
+      "name": "GEOS",
+      "version": "3.14.1",
+      "license": "LGPL-2.1-or-later",
+      "url": "https://download.osgeo.org/geos/geos-3.14.1.tar.bz2",
+      "sha256": "3c20919cda9a505db07b5216baa980bacdaa0702da715b43f176fb07eff7e716",
+      "filename": "geos-3.14.1.tar.bz2"
+    }
+  ]
+}

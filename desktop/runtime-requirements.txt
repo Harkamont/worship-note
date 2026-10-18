@@ -1,0 +1,32 @@
+# prepare-runtime.py builds the local image-only OpenCV package before installing this lock file.
+# Do not replace it with a PyPI wheel that reintroduces video/audio codecs.
+altgraph==0.17.5
+certifi==2026.7.22
+charset-normalizer==3.5.2
+colorlog==6.12.0
+flatbuffers==25.12.19
+idna==3.20
+macholib==1.16.4; sys_platform == "darwin"
+musicxml==1.4
+numpy==2.5.4
+omegaconf==2.4.0
+onnxruntime==1.31.0
+opencv-python-headless==4.13.0.92+chanyang1
+packaging==26.3
+pillow==12.3.0
+protobuf==7.36.2
+pyclipper==1.4.0
+pyinstaller==6.22.3
+pyinstaller-hooks-contrib==2026.8
+pypdfium2==5.14.0
+PyYAML==6.0.3
+rapidocr==3.10.0
+requests==2.34.2
+setuptools==84.0.0
+shapely==2.2.0
+six==1.17.0
+tqdm==4.70.1
+typing_extensions==4.16.0
+urllib3==2.8.0
+cmake==4.3.2
+ninja==1.13.0

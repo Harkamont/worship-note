@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="워십노트 Mac 시험판: 악보 이미지 인식부터 전조, 구간 나누기, 가사와 악보 저장까지 화면별 사용 안내">
+<title>워십노트 · 처음 사용 안내</title>
+<style>
+:root{color-scheme:light;--ink:#33291f;--soft:#665547;--chestnut:#4b2f23;--gold:#a67b3e;--paper:#fffdfa;--line:#dfd2c0;--wash:#f4eee4}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--wash);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;font-size:16px;line-height:1.9;word-break:keep-all;overflow-wrap:anywhere}
+article{max-width:1080px;margin:40px auto;padding:52px 64px 58px;background:var(--paper);border:1px solid var(--line);box-shadow:0 12px 40px #4b2f2310}.brand{display:flex;align-items:center;justify-content:space-between;padding-bottom:20px;border-bottom:2px solid var(--chestnut);font-size:12px;letter-spacing:.13em;color:var(--chestnut)}.brand strong{font-size:15px;letter-spacing:.02em}.brand span{color:var(--soft)}h1,h2{font-family:"Noto Serif KR","AppleMyungjo","Batang",Georgia,serif;letter-spacing:-.035em;color:var(--chestnut)}h1{font-size:40px;line-height:1.35;margin:32px 0 24px}h2{font-size:27px;line-height:1.45;margin:58px 0 20px;padding-top:22px;border-top:1px solid var(--line);scroll-margin-top:20px}p{margin:0 0 18px}strong{font-weight:700}a{color:#704727;text-decoration-thickness:1px;text-underline-offset:4px}a:hover{color:#9c6e2e}code{padding:2px 5px;border-radius:3px;background:#eee5d7;color:#4b2f23;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:.92em}pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#f4eee4;border-left:3px solid var(--gold);padding:18px 22px;line-height:1.9;margin:18px 0 24px}pre code{background:none;padding:0;color:var(--ink);font-family:inherit;font-size:15px}nav{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin:30px 0 42px}nav a{display:flex;gap:9px;align-items:center;padding:8px 12px;border:1px solid var(--line);border-radius:4px;text-decoration:none;color:var(--chestnut);font-size:13px}nav b{font-size:11px;color:var(--gold)}figure{margin:28px 0 34px;break-inside:avoid}figure img{display:block;width:100%;height:auto;border:1px solid var(--line);border-radius:4px;background:white}figcaption{font-size:13px;line-height:1.75;color:var(--soft);margin:11px 1px 0}.table-wrap{overflow-x:auto;margin:20px 0 26px}table{border-collapse:collapse;width:100%;font-size:14px;line-height:1.75}th,td{text-align:left;vertical-align:top;padding:12px 14px;border:1px solid var(--line)}th{font-weight:700;background:#eee5d7;color:var(--chestnut)}td{background:var(--paper)}footer{margin-top:48px;border-top:2px solid var(--chestnut);padding-top:18px;display:flex;justify-content:space-between;gap:16px;color:var(--soft);font-size:12px}.print-note{font-size:12px;color:var(--soft);margin-top:14px}
+@media(max-width:720px){body{font-size:15px}article{margin:0;padding:26px 22px;border-width:0}h1{font-size:31px}h2{font-size:23px}nav{grid-template-columns:repeat(2,1fr)}.brand span{font-size:10px;letter-spacing:.03em}th,td{padding:8px 10px}footer{display:block}}
+@page{size:A4;margin:14mm 13mm 15mm}@media print{html{scroll-behavior:auto}body{background:white;font-size:10.2pt;line-height:1.75;color:#33291f}article{max-width:none;margin:0;padding:0;border:0;box-shadow:none}.brand{font-size:9pt;padding-bottom:9mm}.brand strong{font-size:11pt}h1{font-size:28pt;margin:11mm 0 8mm}h2{font-size:17pt;margin:0 0 6mm;padding-top:0;border-top:0}h2.step-title{break-before:page}h2.reference-title{margin-top:11mm;break-after:avoid}p{margin-bottom:4mm}nav{margin:8mm 0 10mm;gap:2mm}nav a{font-size:8pt;padding:2mm 3mm}pre{padding:4mm 5mm;margin:4mm 0 5mm}pre code{font-size:9pt}figure{margin:6mm 0 7mm}figure img{border-radius:0;max-height:125mm;object-fit:contain}figcaption{font-size:8.6pt;line-height:1.65;margin-top:2.5mm}.table-wrap{overflow:visible;margin:5mm 0 6mm}table{font-size:9pt;line-height:1.65}th,td{padding:3mm;break-inside:avoid}tr{break-inside:avoid}thead{display:table-header-group}a{color:inherit;text-decoration:underline;text-decoration-thickness:.5pt}footer{font-size:8pt;margin-top:9mm;padding-top:4mm}.print-note{display:none}*{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+</style>
+</head>
+<body><article>
+<header class="brand"><strong>워십노트 · WORSHIP NOTE</strong><span>MAC 시험판 · 처음 사용 안내</span></header>
+<h1>워십노트 처음 사용 안내</h1>
+<p>받은 악보를 올리고, 우리 찬양팀의 키로 바꾸고, 예배 순서에 맞는 악보와 가사를 저장해 보세요. 이 안내서는 <strong>무료 기본 기능</strong>으로 진행합니다. AI 연결이나 API 키가 필요하지 않습니다.</p>
+<p><strong>대상:</strong> Apple Silicon Mac · macOS 15 이상용 시험판. Apple 서명·공증 전이며 Windows 실행 파일은 아직 실기 검증하지 않았습니다.</p>
+<p><a href="https://github.com/Harkamont/worship-note/releases">Mac 시험판 다운로드</a> · <a href="USER_GUIDE.html">인쇄용으로도 열 수 있는 HTML 안내서</a> · <a href="images/practice-score.png">연습용 악보 PNG</a></p>
+<p>연습 곡 <strong>오늘의 찬양</strong>은 앱을 위해 직접 만든 16마디 악보입니다. 이 파일을 준비하고 아래 순서대로 따라 하세요. 인식 결과의 마디·음표가 원본과 다르면 먼저 확인하고 고칩니다. 이 안내는 모든 악보의 인식 정확도를 보장하는 자료가 아닙니다.</p>
+<nav aria-label="안내서 목차"><a href="#step-1"><b>01</b>시작</a><a href="#step-2"><b>02</b>이미지</a><a href="#step-3"><b>03</b>인식</a><a href="#step-4"><b>04</b>편집</a><a href="#step-5"><b>05</b>전조</a><a href="#step-6"><b>06</b>구간</a><a href="#step-7"><b>07</b>순서</a><a href="#step-8"><b>08</b>가사</a><a href="#step-9"><b>09</b>저장</a><a href="#step-10"><b>10</b>다시 열기</a></nav>
+<h2 id="step-1" class="step-title">1. 워십노트 열기</h2>
+<p>Mac 배포 ZIP의 압축을 모두 풀고 폴더 안의 <strong>워십노트 시작.command</strong>를 두 번 누릅니다. 준비가 끝나면 브라우저가 열립니다. Python이나 Node를 따로 설치할 필요는 없습니다.</p>
+<p>처음 보이는 연습곡에서는 마디를 누르거나 키를 바꾸어 볼 수 있습니다. 이 안내에서는 연습용 PNG를 다시 올려 이미지 인식부터 진행합니다. 이미 작업하던 곡이 있다면 <strong>내보내기 → 작업 파일 보관 (JSON)</strong>으로 먼저 보관하세요.</p>
+<figure><img src="screenshots/01-home.png" alt="처음 화면에서 악보 올리기 버튼과 예배 준비 탭 확인"><figcaption>왼쪽에서 악보를 올리고, 가운데에서 확인하며, 오른쪽에서 구간과 부를 순서를 정합니다.</figcaption></figure>
+<h2 id="step-2" class="step-title">2. 연습용 악보 이미지 올리기</h2>
+<p><a href="images/practice-score.png">연습용 악보 PNG</a>를 저장한 뒤 왼쪽의 <strong>악보 이미지 올리기</strong>를 눌러 고릅니다. PNG·JPG 파일을 화면으로 끌어다 놓아도 됩니다. 이미지를 복사했다면 입력 칸 밖을 누르고 <strong>⌘V</strong>로 붙여넣을 수 있습니다.</p>
+<p><strong>악보를 읽을 방법</strong>은 <strong>무료로 음표 읽기 (기본)</strong>으로 둡니다. 원본이 선명하고 빠진 부분이 없는지 확인합니다. 이미지 한 장은 10MB 이하이며, 여러 장을 한 곡으로 합치는 기능은 현재 제공하지 않습니다.</p>
+<figure><img src="screenshots/02-upload.png" alt="이미지를 올린 뒤 무료 음표 읽기 방법과 원본 확인"><figcaption>기본 무료 방식은 이 컴퓨터에서 음표를 읽습니다. 외부 AI 연결이 필요하지 않습니다.</figcaption></figure>
+<h2 id="step-3" class="step-title">3. 음표를 읽고 원본과 비교하기</h2>
+<p><strong>무료 · 이 기기에서 음표 읽기</strong>를 누릅니다. 결과가 나타나면 원본과 인식 악보를 마디별로 비교하세요. 음높이·쉼표·붙임줄·조표와 첫 마디의 길이를 확인합니다.</p>
+<p><strong>이번 연습 결과:</strong> 무료 음표 읽기는 6.5초가 걸렸고 16마디·음표와 쉼표 64개·코드 0개를 반환했습니다. API 사용료는 0입니다. 이 개수만으로 모든 음표가 원본과 맞았다고 판단할 수는 없습니다.</p>
+<p>무료 음표 읽기는 가사와 코드를 자동으로 붙이지 않습니다. 결과의 코드가 0개이거나 가사가 비어 있어도 가사까지 읽었다고 해석하지 마세요. 이 안내에서는 뒤에서 가사를 직접 넣습니다.</p>
+<p>화면의 <strong>가사·코드 글자 읽기 (무료)</strong>는 별도 도구입니다. 열고 버튼을 눌러야 읽으며, 글자를 고쳐 TXT로 저장할 수 있습니다. 글자를 음표 아래에 붙이거나 코드를 박자에 맞춰 넣는 기능은 아닙니다. 한 변 2,500픽셀·400만 화소 이하 이미지에서 사용할 수 있어, 이 안내서의 큰 연습용 PNG에서는 버튼이 비활성화됩니다. 이 경우에도 무료 음표 읽기와 직접 가사 입력은 계속할 수 있습니다.</p>
+<figure><img src="screenshots/03-recognition.png" alt="무료 인식 결과를 원본 이미지와 나란히 비교"><figcaption>자동 검사는 파일 구성과 박자 등을 확인합니다. 원본과 같은 음높이인지는 직접 대조하세요.</figcaption></figure>
+<h2 id="step-4" class="step-title">4. 편집기로 가져오기</h2>
+<p>일반 멜로디 악보는 결과 상단의 <strong>이 악보 편집하기</strong>를 누릅니다. 화면 아래의 <strong>편집기로 가져오기</strong>도 같은 결과를 가져옵니다. 현재 편집 중인 곡은 이 악보로 바뀝니다.</p>
+<p>전조할 코드도 직접 넣어 봅니다. 악보에서 <strong>1마디를 누른 뒤 악보 편집 탭의 코드 → 추가</strong>를 누르고, 박 위치 <strong>1</strong>에 코드 <strong>C</strong>를 입력합니다. 같은 방법으로 <strong>2마디에 F</strong>를 넣습니다. 아래 화면에 표시된 두 코드는 이렇게 직접 넣었으며, 무료 인식이 읽은 코드는 아닙니다.</p>
+<p>4부 찬송가라면 <strong>4부 찬송가를 멜로디 악보로</strong>에서 남길 멜로디를 고르고 <strong>멜로디 악보 만들기 → 멜로디 편집하기</strong>를 누릅니다. 자동 선택이 원본의 주 멜로디와 다르면 다른 성부를 골라 비교하세요. 없는 코드를 새로 만들지는 않습니다.</p>
+<p>박자 확인 사항이 남으면 <strong>검토용으로 열고 고치기</strong>가 제공될 수 있습니다. 표시된 마디를 고친 뒤 사용하세요. 지원하지 않는 음표 구성 때문에 가져올 수 없을 때는 원본 XML을 저장해 다른 악보 앱에서 확인합니다.</p>
+<figure><img src="screenshots/04-editor.png" alt="인식 결과를 가져온 편집 화면"><figcaption>마디를 눌러 코드 C·F를 직접 넣은 화면입니다. 원본 이미지는 ‘원본’ 탭에서 다시 볼 수 있습니다.</figcaption></figure>
+<h2 id="step-5" class="step-title">5. C키를 D키로 전조하기</h2>
+<p>편집 화면 위쪽에서 <strong>현재 키(C)가 표시된 선택 상자</strong>를 눌러 <strong>D</strong>를 고릅니다. 편집 악보의 멜로디와 입력된 코드가 함께 전조되어 앞에서 넣은 <strong>C·F는 D·G</strong>로 바뀝니다. 무료 결과에 코드가 없다면 새 코드가 생기지는 않습니다.</p>
+<p>사진인 <strong>원본</strong>은 바뀌지 않습니다. <strong>편집 악보</strong>에서 새 조표와 음높이를 확인하세요. 잘못 바꿨다면 <strong>실행 취소</strong>를 누릅니다.</p>
+<figure><img src="screenshots/05-transpose.png" alt="현재 키 선택 상자에서 D키를 고른 전조 화면"><figcaption>직접 넣은 두 코드도 D·G로 함께 바뀝니다. 인식 오류를 고치는 기능과 전조는 별개입니다.</figcaption></figure>
+<h2 id="step-6" class="step-title">6. 1절·후렴·브릿지로 나누기</h2>
+<p>오른쪽 <strong>예배 준비 → 부를 순서</strong>에서 <strong>절·후렴 나누기</strong>를 사용합니다. <strong>나눌 부분</strong>에서 작업할 구간을 고르고 다음처럼 나눕니다.</p>
+<div class="table-wrap"><table><thead><tr><th scope="col">시작–끝 마디</th><th scope="col">구간 이름</th><th scope="col">구간 종류</th></tr></thead><tbody><tr><td>1–8</td><td>1절</td><td>절 (벌스)</td></tr><tr><td>9–12</td><td>후렴</td><td>후렴</td></tr><tr><td>13–16</td><td>브릿지</td><td>브릿지</td></tr></tbody></table></div>
+<p>먼저 전체 구간의 1–8마디를 고른 뒤 이름·종류를 입력하고 <strong>1–8마디를 구간으로 지정</strong>을 누릅니다. 다음에는 <strong>나눌 부분</strong>에서 남은 9–16마디를 골라 9–12마디를 후렴으로 지정합니다. 마지막 13–16마디는 브릿지로 지정합니다.</p>
+<p>이 도구의 마디 번호는 <strong>편집 악보 전체의 첫 마디부터</strong> 셉니다. 구간 이름 옆에 표시된 범위를 확인하세요. 나누고 남은 마디는 지워지지 않습니다. 붙임줄로 이어진 마디는 함께 포함해 나누어야 합니다.</p>
+<figure><img src="screenshots/06-sections.png" alt="나눌 부분과 전체 악보 기준 시작·끝 마디 지정"><figcaption>기존 마디를 나눌 때는 이 도구를 사용합니다. ‘곡의 구간’ 옆 ‘추가’는 음표를 새로 입력할 빈 구간을 만드는 기능입니다.</figcaption></figure>
+<h2 id="step-7" class="step-title">7. 부를 순서와 반복 횟수 정하기</h2>
+<p><strong>곡의 구간</strong>에서 이름을 누르면 <strong>부를 순서</strong> 끝에 추가됩니다. 구간을 나눌 때 기존 순서도 함께 나뉘므로, 이미 들어 있는 행을 먼저 확인하세요. 각 행 오른쪽 화살표로 순서를 바꾸고 필요 없는 행은 삭제합니다. 순서에서 삭제해도 해당 구간의 음표는 남습니다.</p>
+<p>이번 예제는 <strong>1절 → 후렴 ×2 → 브릿지 → 후렴</strong>으로 정합니다. 후렴의 반복 상자는 <strong>×2</strong>, 나머지는 <strong>×1</strong>로 둡니다. 같은 후렴을 마지막에 다시 넣으려면 <strong>곡의 구간 → 후렴</strong>을 한 번 더 누릅니다.</p>
+<p><strong>악보 상단에 부를 순서 표시</strong>, <strong>악보에 구간 이름 표시</strong>를 켜면 출력할 악보에도 이름과 순서가 보입니다.</p>
+<figure><img src="screenshots/07-song-form.png" alt="1절·후렴 반복·브릿지·후렴 순서를 정한 화면"><figcaption>PNG는 구간별 악보를 한 번씩 표시하고 상단에 부를 순서를 적습니다. TXT와 MusicXML은 부를 순서와 반복을 반영해 내용을 전개합니다.</figcaption></figure>
+<h2 id="step-8" class="step-title">8. 가사를 한 번에 넣고 TXT 확인하기</h2>
+<p>오른쪽 <strong>가사 TXT</strong> 탭에서 <strong>가사 입력할 구간 → 1절</strong>을 고르고 <strong>가사 한 번에 넣기</strong>를 엽니다. 다음 가사를 넣습니다.</p>
+<pre><code>오늘 하루 주신 은혜 마음 모아 노래해요
+작은 손을 서로 잡고 사랑 나눠 함께 가요</code></pre>
+<p><strong>가사 배치 미리보기</strong>를 누르고 어느 음표에 어떤 글자가 들어가는지 확인한 뒤 <strong>확인한 가사 적용</strong>을 누릅니다. 이후 후렴과 브릿지도 각각 골라 같은 방법으로 넣습니다.</p>
+<p><strong>후렴</strong></p>
+<pre><code>감사해요 나의 주님 밝은 노래 주께 드려</code></pre>
+<p><strong>브릿지</strong></p>
+<pre><code>비가 와도 힘을 내요 주의 말씀 따라 살래</code></pre>
+<p>한글은 한 음절씩 배치하며 쉼표와 붙임줄 뒤의 음표는 건너뜁니다. 같은 글자를 여러 음으로 늘여 부른다면 추가 음표마다 공백으로 구분한 <strong><code>-</code></strong>를 넣습니다. 예: <strong><code>주 - 님</code></strong>. 음표 수와 맞지 않으면 적용할 수 없으므로 안내를 확인하고 입력이나 악보를 고치세요. 이 기능은 기본 가사만 바꾸며 다른 절의 가사는 보존합니다.</p>
+<p>아래 <strong>가사 미리 보기</strong>에서 부를 순서와 반복이 맞는지 살펴봅니다. 필요한 경우 <strong>출력할 절</strong>을 바꾸고 <strong>구간 이름 포함</strong>을 켭니다. <strong>TXT 다운로드</strong>로 저장하거나 <strong>복사</strong>로 자막 프로그램에 붙여넣습니다. 가사가 없으면 TXT 저장 버튼은 활성화되지 않습니다.</p>
+<figure><img src="screenshots/08-lyrics.png" alt="구간별 가사를 입력하고 부를 순서대로 확인하는 화면"><figcaption>가사 대신 길이만 나타내는 늘임 표시는 TXT에서 제외합니다. 띄어쓰기와 줄바꿈, 부르는 위치는 직접 확인하세요.</figcaption></figure>
+<h2 id="step-9" class="step-title">9. 악보·가사·작업 파일 저장하기</h2>
+<p>위쪽 <strong>편집 악보</strong> 탭을 선택하고 <strong>내보내기</strong>를 누릅니다. 먼저 악보 PNG와 작업 JSON을 저장하세요. 가사 TXT는 같은 메뉴 또는 <strong>가사 TXT → TXT 다운로드</strong>에서 저장할 수 있습니다.</p>
+<div class="table-wrap"><table><thead><tr><th scope="col">메뉴</th><th scope="col">파일</th><th scope="col">사용할 때</th></tr></thead><tbody><tr><td>악보 이미지</td><td>PNG</td><td>찬양팀에 지금 편집한 악보를 전달합니다.</td></tr><tr><td>부를 순서대로 가사</td><td>TXT</td><td>선택한 절과 순서·반복을 반영해 자막용 가사를 전달합니다.</td></tr><tr><td>다른 악보 프로그램에서 편집</td><td>XML</td><td>MuseScore 등에서 음표·가사·코드를 이어서 편집합니다.</td></tr><tr><td>작업 파일 보관</td><td>JSON</td><td>원본·편집 악보·송폼·보관된 인식 결과를 백업합니다.</td></tr></tbody></table></div>
+<p>PNG가 빽빽하면 <strong>악보 편집 → 출력 모양</strong>에서 <strong>한 줄의 최대 마디</strong>와 <strong>가사 글자 크기</strong>를 바꿉니다. 화면 아래 확대·축소는 화면 크기만 바꾸며 다운로드 배치는 바꾸지 않습니다. 저장한 PNG와 TXT를 직접 열어 사용 전에 확인하세요.</p>
+<figure><img src="screenshots/09-export.png" alt="내보내기 메뉴에서 PNG·TXT·XML·JSON 선택"><figcaption>다음에 이어서 작업하려면 JSON도 함께 보관하세요. PNG나 XML만으로는 이 앱의 작업 전체를 복원할 수 없습니다.</figcaption></figure>
+<h2 id="step-10" class="step-title">10. 작업 파일로 다시 열기</h2>
+<p>왼쪽 <strong>작업 파일 불러오기</strong>를 누르고 저장한 JSON을 고릅니다. 다른 곡을 작업 중이라면 그 곡도 먼저 JSON으로 보관하세요. 파일을 열면 현재 작업이 바뀝니다.</p>
+<p>다시 연 뒤 제목, 키, 구간 이름, 부를 순서, 가사를 확인합니다. <strong>원본과 인식 결과 비교</strong>에서는 함께 보관한 인식 내용을 볼 수 있습니다. 기존 AI 설정은 악보 작업 파일과 별도로 관리합니다.</p>
+<figure><img src="screenshots/10-reopen.png" alt="저장한 작업 JSON을 다시 불러온 화면"><figcaption>설치형 앱은 현재 작업을 이 기기에 자동 저장합니다. 별도 백업이나 다른 컴퓨터로의 이동에는 JSON 파일을 사용하세요.</figcaption></figure>
+<h2 class="reference-title">AI를 추가로 사용하려면</h2>
+<p>기본 작업에는 필요하지 않습니다. 원할 때 <strong>AI 연결 설정</strong>에서 서비스·모델·본인의 키를 입력하세요. 키는 앱 화면에만 입력하고 채팅·GitHub 이슈·README에 붙여넣지 마세요. <strong>설정 JSON과 앱 설정 폴더를 공유하지 마세요.</strong> 작업 백업용 JSON과 AI 설정 파일은 서로 다릅니다.</p>
+<p>키를 저장하는 것만으로 유료 요청을 보내지는 않습니다. ‘유료’라고 표시된 버튼을 누르면 이미지가 선택한 서비스로 전송됩니다. 무료 음표에 가사·코드를 추가하거나, 악보 전체를 다시 읽거나, 사용자가 고른 연속 1~4마디만 보완할 수 있습니다. 실패·취소한 요청에도 요금이 생길 수 있으며 사용료 정보가 없다는 표시는 무료라는 뜻이 아닙니다.</p>
+<p>부분 AI는 잘못된 음표를 자동으로 모두 찾지 않습니다. 사용자가 고칠 마디와 원본 이미지의 같은 부분을 골라야 합니다. 미리 보기와 AI 요청은 별도이며 수정안은 확인한 뒤 적용합니다.</p>
+<h2 class="reference-title">자주 막히는 부분</h2>
+<div class="table-wrap"><table><thead><tr><th scope="col">상황</th><th scope="col">해 볼 일</th></tr></thead><tbody><tr><td>Mac에서 실행이 차단됨</td><td>현재는 서명·공증 전 시험판입니다. 운영체제와 경고 문구를 이슈로 알려 주세요. 보안을 해제하는 명령을 사용하도록 안내하지 않습니다.</td></tr><tr><td>앱이 이미 실행 중이라고 나옴</td><td>함께 열린 실행 창이 있는지 확인하고 닫은 뒤 다시 실행합니다. 브라우저 탭만 닫으면 앱은 계속 실행됩니다.</td></tr><tr><td>음표 인식기를 시작하지 못함</td><td>ZIP 전체를 다시 풀고 폴더 구성을 유지한 상태에서 시작합니다. 실행 중에 안의 파일을 옮기지 마세요.</td></tr><tr><td>가사가 비어 있음</td><td>무료 음표 읽기는 가사를 붙이지 않습니다. ‘가사 한 번에 넣기’로 입력하거나 선택 사항인 유료 AI로 추가하세요.</td></tr><tr><td>가사 적용 버튼을 누를 수 없음</td><td>가사 배치 미리보기를 먼저 확인합니다. 음표와 가사 단위 수가 맞는지, 늘임 표시가 필요한지 살펴보세요.</td></tr><tr><td>다음 후렴을 나누기 어려움</td><td>‘나눌 부분’에서 남은 마디를 고른 뒤 전체 악보 기준 번호로 지정합니다.</td></tr><tr><td>박자 확인 안내가 나옴</td><td>원본을 대조하세요. 못갖춘마디라면 ‘이 마디의 길이’를 먼저 확인하고 음표 길이의 합을 고칩니다.</td></tr><tr><td>저장 실패가 표시됨</td><td>바로 ‘작업 파일 보관 (JSON)’을 다운로드합니다. 오류가 해결되기 전에 앱 데이터를 지우지 마세요.</td></tr></tbody></table></div>
+<p>현재 편집기는 단선율·한 조성·한 박자를 중심으로 합니다. 잇단음표·32분음표·복잡한 시간 이동 등을 가져오지 못할 수 있으며, 원본 XML은 보관합니다. 가사와 코드를 포함해 원본과 정확히 같은지는 직접 확인해야 합니다.</p>
+<p>문제가 계속되면 <a href="https://github.com/Harkamont/worship-note/issues">GitHub 이슈</a>에 운영체제, 누른 버튼 순서, 오류 문구를 적어 주세요. 키·설정 파일·개인 악보는 첨부하지 마세요.</p>
+<p>표본별 처리 시간과 파일 검사는 <a href="release-validation.md">배포 검증 기록</a>에서 확인할 수 있습니다. 전체 음표·가사·코드의 원본 일치율은 아직 측정하지 않았습니다.</p>
+<p class="print-note">브라우저의 인쇄 메뉴에서 종이에 인쇄하거나 PDF로 저장할 수 있습니다. 이 안내서를 다른 폴더로 옮길 때는 screenshots·images 폴더도 함께 옮겨 주세요.</p>
+<footer><strong>WORSHIP NOTE</strong><span>한국 교회의 예배 준비를 위한 로컬 악보 앱</span></footer>
+</article></body>
+</html>
